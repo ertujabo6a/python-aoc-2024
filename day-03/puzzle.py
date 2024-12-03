@@ -13,6 +13,7 @@ with open('input.txt', 'r') as file:
         result += x * y
     print(result)
 
+    """
     # Part Two
     first_do = data.split("don't()")[0]
     last_do = data.split("do()")[-1]
@@ -30,4 +31,18 @@ with open('input.txt', 'r') as file:
     for instruction_do in instructions_dos:
         x, y = map(int, instruction_do.strip('mul()').split(','))
         result_dos += x * y
+    print(result_dos)
+    """
+    switch = True
+    result_dos = 0
+    matches = re.findall(r"mul\(\d+,\d+\)|do\(\)|don't\(\)", data)
+    for match in matches:
+        if match == "do()":
+            switch = True
+        elif match == "don't()":
+            switch = False
+        else:
+            if switch:
+                x, y = map(int, match.strip('mul()').split(','))
+                result_dos += x * y
     print(result_dos)
